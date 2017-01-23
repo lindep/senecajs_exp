@@ -1,0 +1,22 @@
+{
+  "name": "test_seneca",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "seneca": "^3.2.2",
+    "seneca-amqp-transport": "^2.1.0",
+    "seneca-balance-client": "^0.6.0",
+    "seneca-mesh": "^0.9.0",
+    "seneca-redis-queue-transport": "^0.3.0",
+    "seneca-web": "^2.0.0",
+    "seneca-web-adapter-express": "^1.0.2"
+  }
+}
