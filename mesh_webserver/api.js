@@ -2,12 +2,13 @@ module.exports = function api(options) {
   //var seneca = this
   //this.fixedargs['fatal$'] = false
 
+  options.cluster = options.cluster || false;
+
   var valid_ops = { sum:'sum', product:'product' }
 
   this.add('role:api,path:calculate', function (msg, respond) {
     console.log('from role:api,path:calculate in api');
-    process.send({ 'msg': 'worker '+ process.pid});
-    if (typeof process.send === 'function') {
+    if (options.cluster/*typeof process.send === 'function'*/) {
       // Cluster
       process.send({ 'msg': 'worker '+ process.pid});
     }
@@ -30,7 +31,10 @@ module.exports = function api(options) {
 
   this.add('role:api,path:color', function (msg, respond) {
     console.log('from role:api,path:color in api',this);
-    //process.send({ 'msg': 'worker '+ process.pid +' from role:api,path:color in api'});
+    if (options.cluster/*typeof process.send === 'function'*/) {
+      // Cluster
+      process.send({ 'msg': 'worker '+ process.pid+' from role:api,path:color in api'});
+    }
     var context = this.export('web/context')()
     console.log('web context',context)
     // var Routes = {routes:[{

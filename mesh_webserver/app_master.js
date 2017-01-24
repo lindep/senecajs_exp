@@ -14,7 +14,7 @@ let workerRestartTimeout = workerInitRestartTimeout;
 
 cluster.setupMaster({
   exec: "app.js",
-  args: ['--use', 'log'],
+  args: ['--cluster', 'true', '--ratelimit', 'true'],
   //silent: true
 });
 

@@ -7,6 +7,26 @@ var SenecaWeb = require('seneca-web')
 var Express = require('express')
 var Router = Express.Router
 var context = new Router()
+var RateLimit = require('express-rate-limit')
+var configOptions = {
+  cluster:false,
+  ratelimit:true
+}
+
+//console.log(process.argv)
+if (process.argv.length > 2) {
+  // argv0 = node, argv1 = thisApp.js
+  if (process.argv[2] === '--cluster') {
+    if (process.argv[3] === 'true') {
+      configOptions.cluster = true
+    }
+  }
+  if (process.argv[2] === '--ratelimit') {
+    if (process.argv[3] === 'true') {
+      configOptions.ratelimit = true
+    }
+  }
+}
 
 context.get('/api', function(req, res) {
     res.send('im the api home page!')
@@ -17,6 +37,18 @@ var senecaWebConfig = {
       adapter: require('seneca-web-adapter-express'),
       options: { parseBody: false } // so we can use body-parser
 }
+
+var app = Express()
+
+if (configOptions.ratelimit) {
+  var limiter = new RateLimit({
+    windowMs: 5*1000, //15*60*1000, // 15 minutes 
+    max: 100, // limit each IP to 100 requests per windowMs 
+    delayMs: 0 // disable delaying - full speed until the max limit is reached 
+  });
+  app.use( limiter )
+}
+
 
 var app = Express()
       .use( require('body-parser').json() )
@@ -41,7 +73,7 @@ var seneca = require('seneca')({ strict: { find: false } })
         }
       })
       .ready( function () {
-        this.use('api')
+        this.use('api',{cluster:configOptions.cluster})
       })
       // .use('api')
       // .client( { type:'tcp', pin:'role:math' } )
