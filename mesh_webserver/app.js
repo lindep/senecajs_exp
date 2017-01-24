@@ -26,7 +26,20 @@ var app = Express()
 //{ strict: { find: false } }
 var seneca = require('seneca')({ strict: { find: false } })
       .use(SenecaWeb, senecaWebConfig )
-      .use('mesh')
+      .use('mesh',{
+        host: "172.17.0.6",
+        bases: ["172.17.0.6:39999"],
+        discover: {
+          multicast: {
+            address: "255.255.255.255"
+          },
+          //registry: REGISTRY
+        },
+        dumpnet: false,
+        sneeze: {
+          silent: false
+        }
+      })
       .ready( function () {
         this.use('api')
       })
