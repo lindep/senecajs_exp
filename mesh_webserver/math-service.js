@@ -1,6 +1,11 @@
+
+/*
+curl -v 'http://localhost:3000/api/calculate/sum?left=2&right=3'
+*/
+
 require( 'seneca' )({ strict: { find: false } })
   .use( 'math' )
-  .use('mesh', { 
+  .use('mesh', {
   	//auto:true,
   	bases: ["127.0.0.1:39999"],
   	discover: {
@@ -13,6 +18,6 @@ require( 'seneca' )({ strict: { find: false } })
 	  sneeze: {
 	    silent: false
 	  },
-  	pin:'role:math' 
+  	pin:'role:math'
   })
   //.listen({ type: 'tcp', pin: 'role:math' })

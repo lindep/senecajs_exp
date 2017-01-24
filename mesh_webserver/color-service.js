@@ -1,4 +1,7 @@
-// color-service.js
+/*
+curl 'http://172.17.0.4:3000/api/color/red'
+*/
+
 var Seneca = require('seneca')
 
 Seneca({log: 'test'})
@@ -16,12 +19,18 @@ Seneca({log: 'test'})
 
   // load the mesh plugin
   .use('mesh', {
-    //auto: true,
-    bases: ['127.0.0.1'],
-    // this is a base node
-    //isbase: true,
-
-    // this service will respond to the format:hex pattern
+  	//auto:true,
+  	bases: ["127.0.0.1:39999"],
+  	discover: {
+      multicast: {
+        address: "255.255.255.255"
+      },
+          //registry: REGISTRY
+    },
+    dumpnet: false,
+	  sneeze: {
+	    silent: false
+	  },
     pin: 'format:hex'
   })
 
