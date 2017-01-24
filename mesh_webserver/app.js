@@ -27,8 +27,8 @@ var app = Express()
 var seneca = require('seneca')({ strict: { find: false } })
       .use(SenecaWeb, senecaWebConfig )
       .use('mesh',{
-        host: "172.17.0.6",
-        bases: ["172.17.0.6:39999"],
+        host: "127.0.0.1",
+        bases: ["127.0.0.1:39999"],
         discover: {
           multicast: {
             address: "255.255.255.255"

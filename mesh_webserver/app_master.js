@@ -1,6 +1,6 @@
 const cluster = require('cluster');
 
-var numCPUs = 1; //require('os').cpus().length;
+var numCPUs = 4; //require('os').cpus().length;
 
 let workerContinuesRestart = true;
 let restartCount = 0;

@@ -6,7 +6,12 @@ module.exports = function api(options) {
 
   this.add('role:api,path:calculate', function (msg, respond) {
     console.log('from role:api,path:calculate in api');
-    //process.send({ 'msg': 'worker '+ process.pid});
+    process.send({ 'msg': 'worker '+ process.pid});
+    if (typeof process.send === 'function') {
+      // Cluster
+      process.send({ 'msg': 'worker '+ process.pid});
+    }
+    
     var operation = msg.args.params.operation
     var left = msg.args.query.left
     var right = msg.args.query.right
@@ -54,7 +59,7 @@ module.exports = function api(options) {
 
 
   this.add('init:api', function (msg, respond) {
-    console.log('from init', this)
+    //console.log('from init', this)
     this.act('role:web',{routes:[
       {
         prefix: '/api',
