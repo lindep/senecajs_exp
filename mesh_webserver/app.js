@@ -7,7 +7,6 @@ var SenecaWeb = require('seneca-web')
 var Express = require('express')
 var Router = Express.Router
 var context = new Router()
-var RateLimit = require('express-rate-limit')
 var configOptions = {
   cluster:false,
   ratelimit:true
@@ -29,7 +28,7 @@ if (process.argv.length > 2) {
 }
 
 context.get('/api', function(req, res) {
-    res.send('im the api home page!')
+    res.send('Test API!')
 });
 
 var senecaWebConfig = {
@@ -41,10 +40,11 @@ var senecaWebConfig = {
 var app = Express()
 
 if (configOptions.ratelimit) {
+  var RateLimit = require('express-rate-limit')
   var limiter = new RateLimit({
-    windowMs: 5*1000, //15*60*1000, // 15 minutes 
-    max: 100, // limit each IP to 100 requests per windowMs 
-    delayMs: 0 // disable delaying - full speed until the max limit is reached 
+    windowMs: 5*1000, //15*60*1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    delayMs: 0 // disable delaying - full speed until the max limit is reached
   });
   app.use( limiter )
 }
