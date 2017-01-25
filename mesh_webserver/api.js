@@ -12,7 +12,7 @@ module.exports = function api(options) {
       // Cluster
       process.send({ 'msg': 'worker '+ process.pid});
     }
-    
+
     var operation = msg.args.params.operation
     var left = msg.args.query.left
     var right = msg.args.query.right
@@ -30,11 +30,12 @@ module.exports = function api(options) {
   })
 
   this.add('role:api,path:color', function (msg, respond) {
-    console.log('from role:api,path:color in api',this);
+    console.log('from role:api,path:color in api');
     if (options.cluster/*typeof process.send === 'function'*/) {
       // Cluster
       process.send({ 'msg': 'worker '+ process.pid+' from role:api,path:color in api'});
     }
+    // for testing
     var context = this.export('web/context')()
     console.log('web context',context)
     // var Routes = {routes:[{
@@ -61,6 +62,18 @@ module.exports = function api(options) {
     }*/)
   })
 
+  this.add('role:api,path:geo', function (msg, respond) {
+    console.log('from role:api,path:geo in api');
+    if (options.cluster) {
+      process.send({ 'msg': 'worker '+ process.pid+' from role:api,path:geo in api'});
+    }
+    var operation = msg.args.params.operation
+    //var left = msg.args.query.left
+    this.act('role:geo', {
+      cmd:   operation
+    }, respond)
+  })
+
 
   this.add('init:api', function (msg, respond) {
     //console.log('from init', this)
@@ -77,6 +90,15 @@ module.exports = function api(options) {
         pin:    'role:api,path:*',
         map: {
           color: { GET:true, suffix:'/:operation' }
+        }
+      }
+      ,
+      {
+        prefix: '/api',
+        pin:    'role:api,path:*',
+        //postfix: '/?param=true',
+        map: {
+          geo: { GET:true, suffix:'/:operation' }
         }
       }
     ]}, respond)
