@@ -2,9 +2,9 @@
 curl 'http://172.17.0.4:3000/api/geo/operation'
 */
 
-var Seneca = require('seneca', {log: 'test', strict: { find: false }})
+var Seneca = require('seneca')
 
-Seneca()
+Seneca({log: 'test', strict: { find: false }})
   .add('role:geo,cmd:operation,v:3', function (msg, done) {
     console.log('inside v3')
     var cmd = 'red' === msg.cmd ? '#FF0000' : 'v3'

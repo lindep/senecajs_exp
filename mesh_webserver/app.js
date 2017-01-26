@@ -56,7 +56,7 @@ var app = Express()
       .listen(3000)
 
 //{ strict: { find: false } }
-var seneca = require('seneca', {log: 'test', strict: { find: false }})({ strict: { find: false } })
+var seneca = require('seneca')({ log: 'test',strict: { find: false } })
       .use(SenecaWeb, senecaWebConfig )
       .use('mesh',{
         host: "127.0.0.1",

@@ -2,7 +2,7 @@
 curl 'http://172.17.0.4:3000/api/geo/operation'
 */
 
-var Seneca = require('seneca', {log: 'test', strict: { find: false }})
+var Seneca = require('seneca')
 
 Seneca({
   log: 'test',
