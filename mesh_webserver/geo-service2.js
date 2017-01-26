@@ -1,19 +1,15 @@
 /*
-curl 'http://172.17.0.4:3000/api/color/red'
+curl 'http://172.17.0.4:3000/api/geo/operation'
 */
 
 var Seneca = require('seneca', { strict: { find: false } })
 
 Seneca({log: 'test'})
-
-  // provide an action for the format:hex pattern
-  .add('format:hex', function (msg, done) {
-
-    // red is the only color supported!
-    var color = 'red' === msg.color ? '#FF0000' : 'notsupported'
-
+  .add('role:geo,cmd:operation,v:2', function (msg, done) {
+    console.log('inside v2')
+    var cmd = 'red' === msg.cmd ? '#FF0000' : 'v2'
     done(null, {
-      color: color
+      cmd: cmd
     })
   })
 
@@ -31,7 +27,5 @@ Seneca({log: 'test'})
 	  sneeze: {
 	    silent: false
 	  },
-    pin: 'format:hex'
+    pin: 'role:geo,cmd:operation,v:2'
   })
-
-  //.listen({ type: 'tcp', pin: 'role:math' })

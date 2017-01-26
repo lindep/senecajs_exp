@@ -69,9 +69,10 @@ module.exports = function api(options) {
     }
     var operation = msg.args.params.operation
     //var left = msg.args.query.left
-    this.act('role:geo', {
-      cmd:   operation
-    }, respond)
+    var act = Object.assign({'role':'geo','cmd':operation},msg.args.query)
+    console.log('new act for geo, role:geo')
+    console.log(act)
+    this.act('role:geo', act, respond)
   })
 
 

@@ -4,21 +4,10 @@ curl 'http://172.17.0.4:3000/api/geo/operation'
 
 var Seneca = require('seneca', {log: 'test', strict: { find: false }})
 
-Seneca({
-  log: 'test',
-  strict: { find: false }
-})
-
-  .add('role:geo,cmd:operation', function (msg, done) {
-    var cmd = 'red' === msg.cmd ? '#FF0000' : 'notsupported'
-    done(null, {
-      cmd: cmd
-    })
-  })
-
-  .add('role:geo,cmd:operation,v:1', function (msg, done) {
-    console.log('inside v1')
-    var cmd = 'red' === msg.cmd ? '#FF0000' : 'v1'
+Seneca()
+  .add('role:geo,cmd:operation,v:3', function (msg, done) {
+    console.log('inside v3')
+    var cmd = 'red' === msg.cmd ? '#FF0000' : 'v3'
     done(null, {
       cmd: cmd
     })
@@ -38,5 +27,5 @@ Seneca({
 	  sneeze: {
 	    silent: false
 	  },
-    pin: 'role:geo,cmd:operation,v:1'
+    pin: 'role:geo,cmd:operation,v:3'
   })
