@@ -8,8 +8,8 @@ module.exports = function math( options ) {
     respond( null, { answer: msg.left * msg.right } )
   })
 
-  init.bind(this)
-  this.add('init:math', init)
+
+  this.add('init:math', init.bind(this))
 
   // this.add( 'role:math', function product( msg, respond ) {
   //   respond( null, { valid: false, answer: 0 } )
