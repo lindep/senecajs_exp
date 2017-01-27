@@ -8,6 +8,9 @@ module.exports = function math( options ) {
     respond( null, { answer: msg.left * msg.right } )
   })
 
+  init.bind(this)
+  this.add('init:math', init)
+
   // this.add( 'role:math', function product( msg, respond ) {
   //   respond( null, { valid: false, answer: 0 } )
   // })
@@ -19,4 +22,14 @@ module.exports = function math( options ) {
     this.prior( msg, respond )
   })
 
+}
+
+function init( args, done ) {
+  var seneca = this
+  seneca.log.info("preparing math plugin...")
+  setTimeout( function() {
+    suffix = '-math'
+    seneca.log.info("Math plugin ready!")
+    done()
+  }, 111 )
 }
