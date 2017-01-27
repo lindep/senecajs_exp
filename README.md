@@ -3,7 +3,7 @@
 #### Note
 For this version of the package.json node v6+ is required  
 
-#### Getting started ####  
+#### Getting started ####
 ```
 clone repo  
 cd repo  
