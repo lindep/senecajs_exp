@@ -1,5 +1,5 @@
 /*
-curl 'http://172.17.0.4:3000/api/geo/operation'
+curl 'http://172.17.0.4:3000/api/geo/operation/?v=1'
 */
 
 var Seneca = require('seneca')
