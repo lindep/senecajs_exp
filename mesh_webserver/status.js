@@ -16,6 +16,8 @@ module.exports = function( options ) {
     //,get:seneca
   }
 
+  seneca.sub((err,msg)=>{console.log('from seneca.sub = ',msg)})
+
   seneca
     .add( 'role:stats', function( args, done ) {
       var that = this
